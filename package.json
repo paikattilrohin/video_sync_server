@@ -1,0 +1,24 @@
+{
+  "name": "video_sync_server",
+  "version": "1.0.0",
+  "description": "backend_for_plugin",
+  "main": "sync_server.js",
+  "scripts": {
+    "test": "node sync_server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paikattilrohin/video_sync_server.git"
+  },
+  "author": "rohin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paikattilrohin/video_sync_server/issues"
+  },
+  "homepage": "https://github.com/paikattilrohin/video_sync_server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "rate-limiter-flexible": "^2.2.2",
+    "socket.io": "^4.1.2"
+  }
+}
