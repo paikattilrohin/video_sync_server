@@ -39,10 +39,10 @@ let wake = false;
 function wakeServer(status) {
   if (status) {
     wake = setInterval( () => {
-      console.log("running Every 1 minute");
-      // if (!debug) {
-      //   http.get('http://syncevent.herokuapp.com');
-      // }
+      // console.log("running Every 1 minute");
+      if (!debug) {
+        http.get('http://syncevent.herokuapp.com');
+      }
     }, wakeServerTime * 60000);
 
   } else {
@@ -51,7 +51,7 @@ function wakeServer(status) {
   }
 }
 // keep the server awake forever
-// wakeServer(true);
+wakeServer(true);
 
 
 
@@ -77,7 +77,7 @@ io.on("connection", (socket) => {
       all_rooms[roomname]["connected_users"][socket.id] = username;
       socket.join(roomname);
       socket.emit('enter', { successful: true, self: socket.id, room_details: all_rooms[roomname] });
-      // socket.broadcast.to(roomname).emit('connectedUsers', all_rooms[roomname]);
+      socket.broadcast.to(roomname).emit('connected_users', all_rooms[roomname]);
     }
     else {
       socket.emit('enter', { successful: false, reason: "Wrong Secret Key" });
@@ -102,7 +102,7 @@ io.on("connection", (socket) => {
       }
       else {
         console.log("update user list ");
-        socket.broadcast.to(roomname).emit('connectedUsers', all_rooms[socket_connections_to_room[socket.id]]);
+        socket.broadcast.to(roomname).emit('connected_users', all_rooms[roomname]);
       }
       delete socket_connections_to_room[socket.id];
       console.log("all rooms", all_rooms);
@@ -131,10 +131,6 @@ io.on("connection", (socket) => {
 
   
 
-
-  
-
-
   socket.on('get_time', (data)=>{
     // time sent back to server
     console.log("-> time given back is \n ", data);
@@ -149,8 +145,8 @@ io.on("connection", (socket) => {
   socket.on('transmit_video_event', (data)=>{
     console.log("->transmit event \n", data);
     let roomname = socket_connections_to_room[socket.id];
-    // socket.broadcast.to(roomname).emit("transmit_video_event", data);
-    socket.emit("transmit_video_event",data);
+    socket.broadcast.to(roomname).emit("transmit_video_event", data);
+    // socket.emit("transmit_video_event",data);
   });
 
 
