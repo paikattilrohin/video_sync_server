@@ -115,8 +115,8 @@ io.on("connection", (socket) => {
     let roomname = socket_connections_to_room[socket.id];
     all_rooms[roomname]["video_details"] = message;
     console.log(all_rooms);
-    socket.broadcast.to(roomname).emit("share", all_rooms[roomname]);
-    // socket.emit("share", all_rooms[roomname]);
+    socket.broadcast.to(roomname).emit("share", all_rooms[roomname]);    // <------ change this later while testing locally 
+    // socket.emit("share", all_rooms[roomname]);   // <------ change this later while testing locally 
   });
 
 
@@ -124,8 +124,8 @@ io.on("connection", (socket) => {
     console.log("-> time requested");
     let roomname = socket_connections_to_room[socket.id];
     all_rooms[roomname].time_requested = true;
-    // socket.broadcast.to(roomname).emit("get_time", {});
-    socket.emit("get_time", {});
+    socket.broadcast.to(roomname).emit("get_time", {});   // <------change this while locally testing
+    // socket.emit("get_time", {});   // <-----   change to this later while locally testing
   });
 
 
@@ -136,8 +136,8 @@ io.on("connection", (socket) => {
     console.log("-> time given back is \n ", data);
     let roomname = socket_connections_to_room[socket.id];
     if(all_rooms[roomname].time_requested == true){
-      socket.broadcast.to(roomname).emit("transmit_video_event", data);
-      socket.emit("transmit_video_event", data);
+      socket.broadcast.to(roomname).emit("transmit_video_event", data);  // <-----   change to this later while locally testing
+      // socket.emit("transmit_video_event", data); // <-----   change to this later while locally testing
       all_rooms[roomname].time_requested = false;
     }
   });
@@ -145,8 +145,8 @@ io.on("connection", (socket) => {
   socket.on('transmit_video_event', (data)=>{
     console.log("->transmit event \n", data);
     let roomname = socket_connections_to_room[socket.id];
-    socket.broadcast.to(roomname).emit("transmit_video_event", data);
-    // socket.emit("transmit_video_event",data);
+    socket.broadcast.to(roomname).emit("transmit_video_event", data);   // <----- change this while testing locally  
+    // socket.emit("transmit_video_event",data);  // <-----   change to this later while locally testing
   });
 
 
