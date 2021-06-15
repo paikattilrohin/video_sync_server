@@ -88,7 +88,7 @@ io.on("connection", (socket) => {
 
   });
 
-  
+
 
   socket.on('disconnect', () => {
     console.log("deleting socket", socket.id);
@@ -116,8 +116,8 @@ io.on("connection", (socket) => {
     let roomname = socket_connections_to_room[socket.id];
     all_rooms[roomname]["video_details"] = message;
     console.log(all_rooms);
-    socket.broadcast.to(roomname).emit("share", all_rooms[roomname]);    // <------ change this later while testing locally 
-    // socket.emit("share", all_rooms[roomname]);   // <------ change this later while testing locally 
+    socket.broadcast.to(roomname).emit("share", all_rooms[roomname]);    
+    socket.emit("share", all_rooms[roomname]);   
   });
 
 
