@@ -130,7 +130,6 @@ io.on("connection", (socket) => {
   });
 
 
-  
 
   socket.on('get_time', (data)=>{
     // time sent back to server
@@ -146,6 +145,8 @@ io.on("connection", (socket) => {
   socket.on('transmit_video_event', (data)=>{
     console.log("->transmit event \n", data);
     let roomname = socket_connections_to_room[socket.id];
+
+  
     socket.broadcast.to(roomname).emit("transmit_video_event", data);   // <----- change this while testing locally  
     // socket.emit("transmit_video_event",data);  // <-----   change to this later while locally testing
   });
