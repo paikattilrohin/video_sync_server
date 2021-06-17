@@ -136,7 +136,7 @@ io.on("connection", (socket) => {
     console.log("-> time given back is \n ", data);
     let roomname = socket_connections_to_room[socket.id];
     if(all_rooms[roomname].time_requested == true){
-      socket.broadcast.to(roomname).emit("transmit_video_event", data);  // <-----   change to this later while locally testing
+      socket.broadcast.to(roomname).emit("start", data);  // <-----   change to this later while locally testing
       // socket.emit("transmit_video_event", data); // <-----   change to this later while locally testing
       all_rooms[roomname].time_requested = false;
     }
@@ -147,7 +147,7 @@ io.on("connection", (socket) => {
     let roomname = socket_connections_to_room[socket.id];
 
   
-    socket.broadcast.to(roomname).emit("transmit_video_event", data);   // <----- change this while testing locally  
+    socket.broadcast.to(roomname).emit("start_video", data);   // <----- change this while testing locally  
     // socket.emit("transmit_video_event",data);  // <-----   change to this later while locally testing
   });
 
